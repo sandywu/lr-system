@@ -1,0 +1,149 @@
+/* 公共部分 start */
+body{font-family: Arial,Helvetica,sans-serif;font-size: 13px;line-height: 20px;color: #333;margin:0;padding:60px 70px 10px 70px;}
+    /* navbar start */
+a:focus{outline:none;}
+a:HOVER{cursor: pointer;}
+.navbar{background-color:#58B2DC;padding-left:14%;padding-right:17%;height:48px;}
+.navbar a{color: white;cursor: pointer;}
+.navbar a:hover{color: #58B2DC;}
+#log:hover{color: white;}
+#nav_inp{border-radius:16px;}
+.nav_search{border-radius:16px;}
+#search{border-radius: 16px;width: 150px;}
+    /* navbar end */
+h1{font-family: "Telex",sans-serif;margin: 10px 0px;font-weight: bold;color:#317EAC;text-rendering: optimizelegibility;}
+h2{font-family: "Telex",sans-serif;margin: 10px 0px;font-weight: bold;color:#317EAC;text-rendering: optimizelegibility;}
+h3{font-family: "Telex",sans-serif;margin: 10px 0px;font-weight: bold;color:#317EAC;text-rendering: optimizelegibility;}
+h4{font-family: "Telex",sans-serif;margin: 10px 0px;font-weight: bold;color:#317EAC;text-rendering: optimizelegibility;}
+h5{margin: 0;padding: 0;font-size: 14px;line-height: 20px;}
+small{font-size: 85%;font-weight: normal;line-height: 1;color: #999;margin-right:1px;}
+hr{margin: 20px 0px;border-width: 1px 0px;border-style: solid none;border-color: #F5F5F5 -moz-use-text-color #FFF; -moz-border-top-colors: none;-moz-border-right-colors: none;-moz-border-bottom-colors: none;-moz-border-left-colors: none; border-image: none;}
+    /* 分页部分 start */
+.fenye{border-top:1px solid #F5F5F5;margin:0px;padding-top:30px;}
+.pagination{padding:0;margin:0;}
+.pagination a{color:#337AB7;}
+.page{margin:0 0 0 10px;}
+    /* 分页部分 end */
+    /* footer start */
+.footer{height:50px;text-align:center;}
+    /* footer end */
+/* 公共部分 start */
+
+/* welcome页面 start */
+.wel_msg{height:110px;padding:20px;background-color:#F1F1F1;}
+.wel_msg h5{font-weight: bold;color:#317EAC;}
+.wel_inf{margin-top:25px;}
+.wel_user{color: #2FA4E7;font-weight: bold;margin-right: 5px;}
+.wel_user:hover{color:#317EAC;}
+.wel_content{word-wrap: break-word;line-height: 190%;margin-top:10px;}
+.wel_login{width:300px;padding:10px 20px;background-color:#F1F1F1;}
+#log_img{margin: 0 0 0 43px;}
+.wel_box{margin-bottom:10px;margin-top: 0px;}
+.wel_lab{padding:5px 0 0 30px;}
+.wel_finp{padding:0;}
+.wel_inp{height:30px;}
+.wel_rem{padding-left:10px;}
+.wel_rep{padding-left:10px;margin-top:8px;}
+.wel_sub{padding-left:10px;margin-top:8px;}
+.wel_log{width:80px;}
+.wel_hot{width:300px;margin-bottom:20px;}
+.wel_hot p{font-size: 18px;text-align: center;display: block;padding: 10px;line-height: 30px;background: #F9F9F9 none repeat scroll 0% 0%;color: #317EAC;}
+.wel_recent{border-bottom:1px dashed #DDD;margin-top:7px;}
+.wel_recent a{text-decoration: none;}
+.wel_recent a:hover{color:#317EAC;}
+.log_message{display:none;color:red;float:right;}
+/* welcome页面 end */
+
+/* 注册页面 start */
+.register_title{text-align:right;padding-top:15px;}
+.register_inp{margin-top:10px;}
+.register_btn{width:150px;}
+.reg_error{display:none;}
+.reg_message{display:none;}
+/* 注册页面 end */
+
+/* user/me/index start */
+.uindex_hot{width:300px;margin-bottom:20px;}
+.uindex_hot p{font-size: 18px;text-align: center;display: block;padding: 10px;line-height: 30px;background: #F9F9F9 none repeat scroll 0% 0%;color: #317EAC;}
+.recent{border-bottom:1px dashed #DDD;margin-top:7px;}
+.recent a{color: #2FA4E7;text-decoration: none;}
+.recent a:hover{color:#317EAC;}
+.said_modal{height: 40px; width: 250px;}
+.uindex_ftxt{padding:10px 10px 0 10px;margin:0;border:0;}
+.uindex_txt{resize:none;}
+.uindex_small{color:green;margin-left:100px;}
+.activ a img{margin-right: 8px;}
+#uindex_message{display: none;}
+/* user/me/index end */
+
+/* account start */
+.acc_content{margin-top: 25px;}
+.acc_phone{text-align: right; padding-top: 10px;}
+img{margin-bottom: 20px;}
+.photo{width: 165px;height: 165px;margin: 0px;}
+#acc_nickName{text-align: right; padding-top: 15px;}
+#acc_signature{text-align: right; padding-top: 15px;}
+#acc_describ{text-align: right; padding-top: 15px;}
+.acc_box{margin-top: 10px;}
+.acc_inp{width: 250px; height: 30px;float: left;}
+.acc_sub{margin-top: 20px;}
+.uaccount_txt{resize:none;width: 250px;}
+.account_nickName_error{color:red;float:left;margin-left:10px;padding-top: 10px;display: none;}
+.acc_model{width: 300px;text-align: center;overflow: hidden;}
+.mini_img{float: left;margin-top: 100px;border: 1px solid #808A87;}
+/* account end */
+/* myself start */
+.myself_focus img{margin-right: 14px; }
+/* myself end */
+/* TODOS start */
+.todos_Todos{margin-top: 25px;}
+.todos_Complete{color: #CCC; font-size: 14px; margin-bottom: 5px;}
+.todos_Complete span{text-decoration: line-through}
+.todos_NoComplete{color: #008000; font-size: 14px; margin-bottom: 5px;}
+/* TODOS end */
+
+/* todo start */
+#todo_message{display: none;}
+/* todo end */
+
+/* editTODO end */
+.edit_cont{margin-top: 0px; padding-left: 20px;}
+.ueditTODO_inp{width: 330px; float: left; margin-right: 10px;}
+.ueditTODO_ud{width: 70px; float: left; margin-right: 10px;}
+.ueditTODO_add{margin-left: 15px;}
+.ueditTODO_btn{padding-top:7px;}
+.todoLength{color: green;}
+#editTodo_message{display: none;}
+.editTodo_li{margin-bottom: 5px;}
+.editTodo_NoComplete{color: #008000; font-size: 14px;}
+.editTodo_IsComplete{color: #CCC; font-size: 14px; text-decoration: line-through}
+.editTodo_priority{width: 70px; float: left; margin-right: 10px;}
+.thisPage{color:green;}
+.pageSize{color:#58B2DC;}
+/* editTODO end */
+
+/* todo start */
+.todo_isComplete{color:green;}
+.todo_noComplete{color:red;}
+/* todo end */
+
+/* addlog start */
+.addlog_cont{margin-top:25px;padding-left:40px;}
+#addlog_sel{width:300px;}
+#addlog_mood{width:250px;height:30px;}
+#addlog_weather{width:250px;height:30px;}
+#addlog_place{width:250px;height:30px;}
+#addlog_title{width:250px;height:30px;}
+.control-group{margin-bottom:20px;}
+#textarea1{width:100%;}
+/* addlog end */
+
+/*logInfo start*/
+.reply{float:right;margin-right: 30px;}
+.logInfo_delReply{float: right;margin-right: 30px;}
+.logInfo_replyCont{margin-left: 50px; margin-top: 15px;}
+.logInfo_img{margin: 20px 20px 0 67px;}
+.logInfo_reply{margin:10px 0 0 63px;}
+.logInfo_txt{max-width:500px; width:500px;}
+.reply_but{margin:10px 0 0 400px;}
+/*logInfo end*/

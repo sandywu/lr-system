@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+            PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+            "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- SqlMap定义-->
+<sqlMap namespace="Todo">
+	<!-- 添加TODO -->
+	<insert id="addTodo">
+		INSERT INTO todo(whoCreate, content, priority, createTime, isComplete)
+		values(#whoCreate#, #content#, #priority#, #createTime#, #isComplete#)
+	</insert>
+	<!-- 初始化TODOS页面 -->
+	<select id="initTodos" parameterClass="com.bqq.util.TodoPage" resultClass="com.bqq.domain.Todo">
+		select id, whoCreate, content, priority, createTime, isComplete 
+		from todo 
+		where whoCreate=#whoCreate# 
+		ORDER BY id DESC 
+		limit #startIndex#,#pageNumber#
+	</select>
+	<!-- 查找所有TODO的总条数 -->
+	<select id="findAllNumber" parameterClass="java.lang.String" resultClass="java.lang.Integer">
+		select count(*)
+		from todo
+		where whoCreate=#whoCreate# 
+	</select>
+	<!-- 更新完成状态前查找 -->
+	<select id="findOneById" parameterClass="java.lang.Integer" resultClass="com.bqq.domain.Todo">
+		select id, isComplete 
+		from todo 
+		where id=#id# 
+	</select>
+	<!-- 更新完成状态 -->
+	<update id="updateComplete" parameterClass="com.bqq.domain.Todo">
+		update todo
+		set isComplete=#isComplete#
+		where id=#id#
+	</update>
+	<!-- 更新优先级 -->
+	<update id="updatePriority" parameterClass="com.bqq.domain.Todo">
+		update todo
+		set priority=#priority#
+		where id=#id#
+	</update>
+	<!-- 根据id删除TODO -->
+	<delete id="delTodoById" parameterClass="java.lang.Integer">
+		delete from todo
+		where id=#id#
+	</delete>
+	<!-- 更新创建人 -->
+	<update id="updateWhocreate" parameterClass="com.bqq.util.UpdateNickname">
+		UPDATE todo
+		set WHOCREATE=#newNickname# 
+		where WHOCREATE=#oldNickname#
+	</update>
+	<!-- 按id查找最新的todo -->
+	<select id="findNew15" resultClass="com.bqq.domain.Todo">
+		select *
+		from todo 
+		ORDER BY id DESC 
+		limit 0,15
+	</select>
+	<!-- 查找TODO数量 -->
+	<select id="findAllNumber2" resultClass="java.lang.Integer">
+		select count(*)
+		from todo
+	</select>
+</sqlMap>

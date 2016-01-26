@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+            PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+            "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- SqlMap定义-->
+<sqlMap namespace="Reply">
+	<!-- 根据logId查找所有回复的总条数 -->
+	<select id="findAllNumberBylogId" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
+		select count(*)
+		from reply
+		where logId=#logId# 
+	</select>
+	<!-- 根据logId查找详细信息 -->
+	<select id="findBylogId" parameterClass="java.lang.Integer" resultClass="com.bqq.domain.Reply">
+		select *
+		from reply
+		where logId=#logId# 
+		ORDER BY id ASC
+	</select>
+	<!-- 根据id删除一条记录 -->
+	<delete id="delReplyById" parameterClass="java.lang.Integer">
+		delete from reply
+		where id=#id# 
+	</delete>
+	<!-- 根据logId删除所有记录 -->
+	<delete id="delReplyBylogId" parameterClass="java.lang.Integer">
+		delete from reply
+		where logId=#logId# 
+	</delete>
+	<!-- 添加一条记录 -->
+	<insert id="addReply" parameterClass="com.bqq.domain.Reply">
+		INSERT INTO reply(logId, replyerId, content, replyTime, replyer2Id) 
+		values(#logId#, #replyerId#, #content#, #replyTime#,#replyer2Id#)
+	</insert>
+</sqlMap>

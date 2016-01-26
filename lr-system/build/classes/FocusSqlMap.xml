@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+            PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+            "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- SqlMap定义-->
+<sqlMap namespace="Focus">
+	<!-- 关注好友前检查是否已经关注 -->
+	<select id="checkFocus" parameterClass="com.bqq.domain.Focus" resultClass="java.lang.Integer">
+		SELECT count(0)
+		FROM focus
+		where whoFocuId=#whoFocuId#
+		and focusWhoId=#focusWhoId#
+	</select>
+	<!-- 关注好友 -->
+	<insert id="focusOne" parameterClass="com.bqq.domain.Focus">
+		INSERT INTO focus(whoFocuId, focusWhoId) 
+		values(#whoFocuId#, #focusWhoId#)
+	</insert>
+	<!-- 取消关注 -->
+	<delete id="cancelFocus" parameterClass="com.bqq.domain.Focus">
+		delete from focus
+		where whoFocuId=#whoFocuId#
+		and focusWhoId=#focusWhoId#
+	</delete>
+	<!-- 查找所有我关注的好友id -->
+	<select id="findMeFocus" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
+		SELECT focusWhoId
+		FROM focus
+		where whoFocuId=#whoFocuId#
+	</select>
+	<!-- 查找所有关注我的好友id -->
+	<select id="findFocusMe" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
+		SELECT whoFocuId
+		FROM focus
+		where focusWhoId=#focusWhoId#
+	</select>
+</sqlMap>
