@@ -41,7 +41,7 @@ function params(data) {
 function ajax(obj) {
 	var xhr = new createXHR();
 	//设置请求头类型，可接受为json格式数据
-	xhr.setRequestHeader("accept","application/json");
+	//xhr.setRequestHeader("accept","application/json");
 	//在url后加一个随机数，防止请求时从缓存中取数据
 	obj.url = obj.url + '?rand=' + Math.random();
 	obj.data = params(obj.data);

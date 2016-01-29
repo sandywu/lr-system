@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
     http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 	<servlet>
-		<!-- spring 核心控制器，所有/*下的请求都会被spring处理 -->
+		<!-- 这个servlet-name很重要，根据这个name会去WEB-INF/下查找 lr-servlet.xml文件 -->
 		<servlet-name>lr</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<!-- 启动工程时就调用spring的Controller -->
@@ -12,6 +12,8 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>lr</servlet-name>
+		<!-- spring 核心控制器，所有/下的请求都会被spring处理(/*会在处理图片或静态资源时不方便，*.jsp指定了处
+		理的文件类型) -->
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	<filter>
