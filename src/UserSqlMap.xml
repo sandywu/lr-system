@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+            PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+            "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- SqlMap定义 -->
+<sqlMap namespace="User">
+	<!-- 注册新用户时ajax检查邮箱 -->
+	<select id="checkEmail" parameterClass="java.lang.String" resultClass="java.lang.Integer">
+		SELECT count(0)
+		FROM user
+		where email=#email#
+	</select>
+	<!-- 注册新用户时ajax检查昵称 -->
+	<select id="checkNickName" parameterClass="java.lang.String" resultClass="java.lang.Integer">
+		SELECT count(0)
+		FROM user
+		where nickName=#nickName#
+	</select>
+	<!-- 用户登录时检测登录密码是否正确 -->
+	<select id="checkPassword" parameterClass="com.bqq.domain.User" resultClass="java.lang.Integer">
+		SELECT count(0)
+		FROM user
+		where email=#email#
+		and password=#password#
+	</select>
+	<!-- 用户登录时根据邮箱查找该用户的所有信息 -->
+	<select id="findOneByEmail" parameterClass="java.lang.String" resultClass="com.bqq.domain.User">
+		SELECT *
+		FROM user
+		where email=#email#
+	</select>
+	<!-- 注册新用户时向数据库插入新记录 -->
+	<insert id="addUser" parameterClass="com.bqq.domain.User">
+		INSERT INTO user(nickName, password, email, state, isAdmin, integral, createTime,qrCode) 
+		values(#nickName#, #password#, #email#, #state#, #isAdmin#, #integral#, #createTime#,#qrCode#)
+	</insert>
+	<!-- 修改个人账号信息 -->
+	<update id="updateMe" parameterClass="com.bqq.domain.User">
+		UPDATE user 
+		SET nickName=#nickName#, signature=#signature#, describ=#describ#
+		WHERE email=#email#
+	</update>
+	<!-- 修改个人头像信息 -->
+	<update id="uploadImg" parameterClass="com.bqq.domain.User">
+		UPDATE user 
+		SET image=#image#
+		WHERE email=#email#
+	</update>
+	<!-- 修改个人密码信息 -->
+	<update id="updatePwd" parameterClass="com.bqq.domain.User">
+		UPDATE user 
+		SET password=#password#
+		WHERE email=#email#
+	</update>
+	<!-- 根据昵称查找头像 -->
+	<select id="findImageByNickname" parameterClass="java.lang.String" resultClass="java.lang.String">
+		SELECT image
+		FROM user
+		where nickName=#nickName#
+	</select>
+	<!-- 根据昵称查找详细信息 -->
+	<select id="findOneByNickname" parameterClass="java.lang.String" resultClass="com.bqq.domain.User">
+		SELECT *
+		FROM user
+		where nickName=#nickName#
+	</select>
+		<!-- 根据id查找详细信息 -->
+	<select id="findOneById" parameterClass="java.lang.Integer" resultClass="com.bqq.domain.User">
+		SELECT *
+		FROM user
+		where id=#id#
+	</select>
+	<!-- 按积分查找活跃用户，前20 -->
+	<select id="find20ByIntegral" resultClass="com.bqq.domain.User">
+		select *
+		from user
+		ORDER BY integral DESC 
+		limit 0,20
+	</select>
+	<!-- 查找用户数量 -->
+	<select id="findAllNumber" resultClass="java.lang.Integer">
+		select count(*)
+		from user
+	</select>
+	<!-- 根据昵称修改用户积分信息 -->
+	<update id="updateIntegral" parameterClass="com.bqq.domain.User">
+		UPDATE user 
+		SET integral=integral+#integral#
+		WHERE nickName=#nickName#
+	</update>
+	<!-- 按积分查找活跃用户 -->
+	<select id="findAllByIntegral" resultClass="com.bqq.domain.User">
+		select *
+		from user
+		ORDER BY integral DESC 
+	</select>
+	<!-- 按分页索引查找用户 -->
+	<select id="findByIndexPage" parameterClass="com.bqq.util.Page" resultClass="com.bqq.domain.User">
+		select *
+		from user
+		order by id DESC
+		limit #startIndex#,#pageNumber#
+	</select>
+	<!-- 根据用户id修改可用状态 -->
+	<update id="updateState" parameterClass="com.bqq.domain.User">
+		UPDATE user 
+		SET state=#state#
+		WHERE id=#id#
+	</update>
+	
+	
+	
+	
+</sqlMap>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<context:component-scan base-package="com.bqq" />
+
+	<mvc:default-servlet-handler />
+	<!-- 静态资源映射 -->
+	<mvc:resources mapping="/img/**" location="/img/" />
+	<mvc:resources mapping="/css/**" location="/css/" />
+	<mvc:resources mapping="/js/**" location="/js/" />
+	<mvc:interceptors>
+		<bean
+			class="org.springframework.mobile.device.DeviceResolverHandlerInterceptor" />
+		<bean
+			class="org.springframework.mobile.device.site.SitePreferenceHandlerInterceptor" />
+	</mvc:interceptors>
+	<mvc:annotation-driven>
+		<mvc:argument-resolvers>
+			<bean class="org.springframework.mobile.device.DeviceWebArgumentResolver" />
+			<bean
+				class="org.springframework.mobile.device.site.SitePreferenceWebArgumentResolver" />
+		</mvc:argument-resolvers>
+	</mvc:annotation-driven>
+
+	<bean id="exceptionResolver"
+		class="com.bqq.component.exception.HandlerExceptionResolverImpl">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.Exception">manager/error</prop>
+				<prop key="java.lang.Throwable">manager/error</prop>
+			</props>
+		</property>
+		<property name="statusCodes">
+			<props>
+				<prop key="manager/error">500</prop>
+				<prop key="manager/error">404</prop>
+			</props>
+		</property>
+		<!-- 设置日志输出级别，不定义则默认不输出警告等错误日志信息 -->
+		<property name="warnLogCategory" value="WARN"></property>
+		<!-- 默认错误页面，当找不到上面mappings中指定的异常对应视图时，使用本默认配置 -->
+		<property name="defaultErrorView" value="manager/error"></property>
+		<!-- 默认HTTP状态码 -->
+		<property name="defaultStatusCode" value="500"></property>
+	</bean>
+
+	<bean id="lobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler" />
+
+	<bean id="TerasolunaSampleDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<!-- Tomcat -->
+			<value>java:comp/env/jdbc/TerasolunaSampleDataSource</value>
+
+
+		</property>
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="TerasolunaSampleDataSource" />
+	</bean>
+
+	<tx:advice id="transactionInterceptor">
+		<tx:attributes>
+			<tx:method name="execute*" propagation="REQUIRED"
+				rollback-for="java.lang.Exception" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<aop:pointcut id="daoBeans" expression="bean(*Controller)" />
+		<aop:advisor pointcut-ref="daoBeans" advice-ref="transactionInterceptor" />
+	</aop:config>
+
+	<!-- ======================================== iBATIS -->
+	<!-- SqlMap -->
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation" value="WEB-INF/sqlMapConfig.xml">
+		</property>
+		<property name="dataSource" ref="TerasolunaSampleDataSource" />
+		<property name="lobHandler" ref="lobHandler" />
+	</bean>
+
+	<!-- DAO -->
+	<bean id="queryDAO" class="jp.terasoluna.fw.dao.ibatis.QueryDAOiBatisImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+
+	<!-- 更新DAO -->
+	<bean id="updateDAO" class="jp.terasoluna.fw.dao.ibatis.UpdateDAOiBatisImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+
+	<!-- DAO -->
+	<bean id="spDAO"
+		class="jp.terasoluna.fw.dao.ibatis.StoredProcedureDAOiBatisImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+
+	<!-- DAO -->
+	<bean id="queryRowHandleDAO" class="jp.terasoluna.fw.dao.ibatis.QueryRowHandleDAOiBatisImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+
+	<!-- HandlerMapping -->
+	<bean
+		class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
+
+	<!-- HandlerAdapter -->
+	<bean
+		class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
+
+	<!-- ViewResolver -->
+	<bean id="viewResolverCommon"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+		<property name="order" value="1" />
+	</bean>
+
+	<!-- 上传图片 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="1073741824" />
+	</bean>
+
+	<!-- 配置eh缓存管理器 -->
+	<bean id="cacheManager"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" />
+
+	<!-- 配置一个简单的缓存工厂bean对象 -->
+	<bean id="simpleCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+		<property name="cacheManager" ref="cacheManager" />
+		<!-- 使用缓存 关联ehcache.xml中的缓存配置 -->
+		<property name="cacheName" value="pictureCache" />
+	</bean>
+
+	<!-- thymeleaf的视图解析器 <bean id="templateResolver" class="org.thymeleaf.templateresolver.ServletContextTemplateResolver"> 
+		<property name="prefix" value="/WEB-INF/html1/" /> <property name="suffix" 
+		value=".html" /> <property name="templateMode" value="HTML5" /> <property 
+		name="characterEncoding" value="UTF-8"/> </bean> <bean id="templateEngine" 
+		class="org.thymeleaf.spring4.SpringTemplateEngine"> <property name="templateResolver" 
+		ref="templateResolver" /> </bean> <bean id="viewResolverThymeleaf" class="cn.spring.common.component.ThymeleafViewResolverEx"> 
+		<property name="templateEngine" ref="templateEngine" /> <property name="characterEncoding" 
+		value="UTF-8"/> <property name="order" value="0"/> </bean> -->
+	<!-- 处理器 <bean name="/hello" class="cn.javass.chapter2.web.controller.HelloWorldController" 
+		/> -->
+
+</beans>

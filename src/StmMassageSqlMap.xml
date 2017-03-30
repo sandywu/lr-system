@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+            PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+            "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- SqlMap定义-->
+<sqlMap namespace="StmMassage">
+	<!-- 查找数量 -->
+	<select id="findAllNumber" resultClass="java.lang.Integer">
+		SELECT count(*)
+		FROM stmmassage
+	</select>
+	<!-- 添加一条记录 -->
+	<insert id="addStmMsg" parameterClass="com.bqq.domain.StmMassage">
+		INSERT INTO 
+		stmmassage (adminId, title, startTime, content, state) 
+		values(#adminId#,#title#,#startTime#,#content#,#state#)
+	</insert>
+	
+	<!-- 查找数量 -->
+	<select id="findNumbByPage" parameterClass="com.bqq.util.Page" resultClass="com.bqq.domain.StmMassage">
+		select *
+		from stmmassage
+		ORDER BY id DESC 
+		limit #startIndex#,#pageNumber#
+	</select>
+	<!-- 更新状态 -->
+	<update id="updateState" parameterClass="com.bqq.domain.StmMassage">
+		update stmmassage
+		set state=#state#, endTime=#endTime#
+		where id=#id#
+	</update>
+	<!-- 查找发布中数量 -->
+	<select id="findAllNumberByState" parameterClass="java.lang.Integer" resultClass="com.bqq.domain.StmMassage">
+		select *
+		from stmmassage
+		where state=#state#
+	</select>
+</sqlMap>

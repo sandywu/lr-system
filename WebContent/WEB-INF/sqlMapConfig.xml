@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMapConfig
+            PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+            "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<!-- SqlMapConfig定义 -->
+<sqlMapConfig>
+    <settings useStatementNamespaces="true" />
+    <typeHandler jdbcType="BLOB" javaType="[B" callback="org.springframework.orm.ibatis.support.BlobByteArrayTypeHandler" />
+    <sqlMap resource="UserSqlMap.xml" />
+    <sqlMap resource="SaidSqlMap.xml" />
+    <sqlMap resource="TodoSqlMap.xml" />
+    <sqlMap resource="BlogSqlMap.xml" />
+    <sqlMap resource="LogSqlMap.xml" />
+    <sqlMap resource="ReplySqlMap.xml" />
+    <sqlMap resource="FocusSqlMap.xml" />
+    <sqlMap resource="PraiseLogSqlMap.xml" />
+    <sqlMap resource="PraiseSaidSqlMap.xml" />
+    <sqlMap resource="RetrieveSqlMap.xml" />
+    <sqlMap resource="ReportLogSqlMap.xml" />
+    <sqlMap resource="StmMassageSqlMap.xml" />
+</sqlMapConfig>
